@@ -1,24 +1,7 @@
-@if(count($errors) > 0)
-    @foreach($errors->all() as $error)
-        <div class='alert alert-danger'>
-            {{$error}}
-        </div>
-    @endforeach
-@endif
+@extends('layouts.app')
 
-@if(session('success'))
-    <div class='alert alert-success'>
-        {{session('success')}}
-    </div>
-@endif
-
-@if(session('error'))
-    <div class='alert alert-danger'>
-        {{session('error')}}
-    </div>
-@endif
-
-<h1>Create Customer</h1>
+@section('content')
+    <h1>Create Customer / Register</h1>
     {!! Form::open(['action' => 'CustomersController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-group">
             {{Form::label('name', 'Name')}}
@@ -32,3 +15,4 @@
         </div>
 
     {!! Form::close() !!}
+@endsection

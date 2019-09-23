@@ -17,11 +17,5 @@ class DatabaseSeeder extends Seeder
             SpecialistsTableSeeder::class,
             CustomersTableSeeder::class,
         ]);
-
-        // $customers = factory(App\Customer::class, 3)
-        //    ->create()
-        //    ->each(function ($customer) {
-        //         $customer->specialist()->save(factory(App\Specialist::class)->make());
-        //     });
     }
 }

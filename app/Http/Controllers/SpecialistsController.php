@@ -8,14 +8,29 @@ use App\Customer;
 class SpecialistsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        // $this->middleware('auth')->except(['index', 'show']);
+        // $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $customers = Customer::orderBy('created_at', 'asc')->limit(5)->get();
-        return view('lightboard')->with('customers', $customers);
+
+        // $customers = Customer::where('specialist_id', 1)->get();
+        // return view('specialists.index')->with('customers', $customers);
+
+    //     $customers = Customer::orderBy('created_at', 'asc')->limit(5)->get();
+    //     return view('lightboard')->with('customers', $customers);
     }
 
     /**
