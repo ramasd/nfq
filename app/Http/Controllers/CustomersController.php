@@ -19,6 +19,12 @@ class CustomersController extends Controller
         return view('lightboard')->with('customers', $customers);
     }
 
+    public function showSpecialistClients()
+    {
+        $customers = Customer::where('specialist_id', auth()->user()->id)->get();
+        return view('specialists.index')->with('customers', $customers);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -54,7 +60,7 @@ class CustomersController extends Controller
         // $customer->user_id = auth()->user()->id;
         $customer->save();
 
-        return redirect('/customer')->with('success', 'Customer Created');
+        return redirect('/customers')->with('success', 'Customer Created');
     }
 
     /**
@@ -99,6 +105,15 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::find($id);
+
+        // Check for correct user
+    //     if(auth()->user()->id !== $customer->user_id){
+    //        return redirect('/posts')->with('error', 'Unauthorized page');
+    //    }
+
+       $customer->delete();
+
+       return redirect('specialists')->with('success', 'Post Removed');
     }
 }

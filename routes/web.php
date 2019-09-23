@@ -11,11 +11,26 @@
 |
 */
 
-Route::resource('customers', 'CustomersController')->except([
-    'create', 'update', 'destroy'
-]);
-// Route::resource('specialists', 'SpecialistsController');
+Route::get('/', function(){
+    return view("index");
+});
 
-Route::get('/customer', 'CustomersController@create');
+Route::get('/customers', 'CustomersController@create');
+
+Route::post('/customers', 'CustomersController@store');
 
 Route::get('/lightboard', 'CustomersController@index');
+
+
+Route::delete('delete/{id}', 'CustomersController@destroy');
+
+Auth::routes([
+    'register' => false,
+    'reset' => false,
+    'verify' => false,
+]);
+ 
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('specialists', 'CustomersController@showSpecialistClients');
+});
