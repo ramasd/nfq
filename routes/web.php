@@ -12,6 +12,10 @@
 */
 
 Route::resource('customers', 'CustomersController')->except([
-    'create', 'store', 'update', 'destroy'
+    'create', 'update', 'destroy'
 ]);
-Route::resource('specialists', 'SpecialistsController');
+// Route::resource('specialists', 'SpecialistsController');
+
+Route::get('/customer', 'CustomersController@create');
+
+Route::get('/lightboard', 'CustomersController@index');

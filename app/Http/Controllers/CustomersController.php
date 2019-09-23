@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Customer;
+use App\Specialist;
 
 class CustomersController extends Controller
 {
@@ -13,7 +15,8 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        return view('customers.create');
+        $customers = Customer::orderBy('created_at', 'asc')->limit(5)->get();
+        return view('lightboard')->with('customers', $customers);
     }
 
     /**
@@ -23,7 +26,13 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        return view('customers.create');
+        $specialists = Specialist::All();
+        $select = [];
+        foreach($specialists as $specialist){
+            $select[$specialist->id] = $specialist->name;
+        }
+
+        return view('customers.create')->with('specialists', $select);
     }
 
     /**
@@ -34,7 +43,18 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required | unique:customers',
+            'specialist_id' => 'required',
+        ]);
+
+        $customer = new Customer;
+        $customer->name = $request->input('name');
+        $customer->specialist_id = $request->input('specialist_id');
+        // $customer->user_id = auth()->user()->id;
+        $customer->save();
+
+        return redirect('/customer')->with('success', 'Customer Created');
     }
 
     /**

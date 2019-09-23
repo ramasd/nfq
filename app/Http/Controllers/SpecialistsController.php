@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Customer;
 
 class SpecialistsController extends Controller
 {
@@ -13,7 +14,8 @@ class SpecialistsController extends Controller
      */
     public function index()
     {
-        return view('specialists.create');
+        $customers = Customer::orderBy('created_at', 'asc')->limit(5)->get();
+        return view('lightboard')->with('customers', $customers);
     }
 
     /**
